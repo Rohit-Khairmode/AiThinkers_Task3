@@ -1,0 +1,38 @@
+[
+  {
+    "userName": "rohit_khairmode",
+    "password": "Pass@1234",
+    "todos": [
+      {
+        "id": "0.7725635920058826",
+        "title": "Raj",
+        "createdAt": "2025-02-13T13:21:38.334Z",
+        "description": "Call Raj now",
+        "priority": "important",
+        "isCompleted": false
+      }
+    ]
+  },
+  {
+    "userName": "raj_jadhav",
+    "password": "raj@123",
+    "todos": [
+      {
+        "id": "0.5338130892416795",
+        "title": "Bullet",
+        "createdAt": "2025-02-13T13:10:32.632Z",
+        "description": "Want to sell it ",
+        "priority": "important",
+        "isCompleted": false
+      },
+      {
+        "id": "0.4286860888947206",
+        "title": "pulsar",
+        "createdAt": "2025-02-13T13:10:49.444Z",
+        "description": "Want to buy it",
+        "priority": "very important",
+        "isCompleted": false
+      }
+    ]
+  }
+]

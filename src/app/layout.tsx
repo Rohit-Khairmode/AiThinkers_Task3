@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import Provider from "@/context/Provider";
+import AuthForm from "@/components/AuthForm";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const josefin = Josefin_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,10 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${josefin.className} antialiased bg-background`}>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
