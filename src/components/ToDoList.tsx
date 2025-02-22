@@ -1,7 +1,7 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { Priority, Todo } from "@/types";
+import { priorityColors, priorityOrder } from "@/constants";
+import { Priority, Todo } from "@/types/type";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -14,27 +14,20 @@ export default function TodoList({
   setTodos: (todos: Todo[]) => void;
   userName: string;
 }) {
+  console.log(todos);
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<"date" | "priority">("date");
-
-  const priorityColors = {
-    "less important": "bg-yellow-400",
-    important: "bg-green-500",
-    "very important": "bg-red-500",
-  };
 
   const sortedTodos = [...todos!].sort((a, b) => {
     if (filter === "date")
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    const priorityOrder = {
-      "less important": 1,
-      important: 2,
-      "very important": 3,
-    };
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); //this will sort array in descending order
+
     return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newTodo: Todo = {
@@ -66,7 +59,7 @@ export default function TodoList({
     setIsModalOpen(false);
   };
 
-  const handleToggleComplete = async (id: string) => {
+  const handleToggleComplete = async (id: string): Promise<void> => {
     let todo = todos.find((todo) => todo.id === id);
     if (!todo) {
       toast.error("something went wrong. Todo Cannot be found");
@@ -86,7 +79,7 @@ export default function TodoList({
 
     setTodos(todos.map((todo) => todo));
   };
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string): Promise<void> => {
     const res = await fetch("api/todos", {
       method: "DELETE",
       body: JSON.stringify({ id, userName }),
@@ -134,7 +127,7 @@ export default function TodoList({
               <span
                 className={`w-3 h-3 rounded-full ${
                   priorityColors[todo.priority]
-                }`}
+                } `}
               />
 
               {/* Checkbox */}
@@ -226,9 +219,9 @@ export default function TodoList({
                 defaultValue={selectedTodo?.priority || "important"}
                 className="w-full p-2 border rounded-md mb-4"
               >
-                <option value="less important">Less Important</option>
+                <option value="lessImportant">Less Important</option>
                 <option value="important">Important</option>
-                <option value="very important">Very Important</option>
+                <option value="veryImportant">Very Important</option>
               </select>
 
               <div className="flex justify-end gap-2">

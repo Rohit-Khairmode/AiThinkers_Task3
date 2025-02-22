@@ -1,15 +1,19 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { AuthError, AuthResponse, User } from "@/types";
+import { AuthContextType, AuthError, AuthInputs, User } from "@/types/type";
 import { authSchema } from "@/types/zod";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
 export default function AuthForm() {
-  const { setUser } = useAuth();
-  const router = useRouter();
-  const [formData, setFormData] = useState({
+  const authContextRespone: AuthContextType | null = useAuth();
+  if (!authContextRespone) throw new Error("Problem in AuthContext");
+  const { setUser }: AuthContextType = authContextRespone;
+  const router: AppRouterInstance = useRouter();
+  const [formData, setFormData] = useState<AuthInputs>({
     userName: "",
     password: "",
     type: "register",
@@ -23,11 +27,11 @@ export default function AuthForm() {
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     const validationResult = authSchema.safeParse(formData);
@@ -45,7 +49,7 @@ export default function AuthForm() {
       method: "POST",
       body: JSON.stringify(formData),
     });
-    const data: AuthResponse = await res.json();
+    const data: User = await res.json();
 
     if (res.status === 400 || res.status === 401 || res.status === 405) {
       setError({ ...data });
@@ -58,7 +62,7 @@ export default function AuthForm() {
         formData.type === "register" ? "Registered" : "Logged in"
       } successfully!`
     );
-    setUser(data as User);
+    setUser(data);
     router.replace("/dashboard");
   };
 

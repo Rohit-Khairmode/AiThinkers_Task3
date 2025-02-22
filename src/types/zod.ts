@@ -18,15 +18,8 @@ export const todoSchema = z.object({
   description: z
     .string()
     .max(2000, "description can not exceed 2000 characters"),
-  priority: z.enum(["less important", "important", "very important"]),
+  priority: z.enum(["lessImportant", "important", "veryImportant"]),
   isCompleted: z.boolean(),
-  // userName: z
-  //   .string()
-  //   .regex(
-  //     /^[a-z][a-z0-9_]*$/,
-  //     "Username must start with a lowercase letter and can only contain lowercase letters, numbers, and underscores."
-  //   )
-  //   .max(50, "Id Can not exceed 100 characters"),
 });
 export const deleteTodoSchema = z.object({
   id: z.string().max(100, "Id Can not exceed 100 characters"),

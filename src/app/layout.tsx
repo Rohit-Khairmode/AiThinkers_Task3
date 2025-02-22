@@ -1,10 +1,11 @@
+import Provider from "@/context/Provider";
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
-import Provider from "@/context/Provider";
-import AuthForm from "@/components/AuthForm";
+import type { NextFont } from "next/dist/compiled/@next/font";
+import type { JSX } from "react";
 
-const josefin = Josefin_Sans({
+const josefin: NextFont = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
 });
@@ -18,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   return (
     <html lang="en">
       <body className={`${josefin.className} antialiased bg-background`}>

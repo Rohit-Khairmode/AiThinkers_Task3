@@ -1,9 +1,10 @@
+import { AuthInputs, ServerUser } from "@/types/type";
 import { authSchema } from "@/types/zod";
 import { readUsers, writeUsers } from "@/utils/fileHandler";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, res: NextResponse) {
-  const { userName, password, type } = await req.json();
+export async function POST(req: Request, _: NextResponse) {
+  const { userName, password, type }: AuthInputs = await req.json();
   const validationResult = authSchema.safeParse({
     userName,
     password,
@@ -23,7 +24,7 @@ export async function POST(req: Request, res: NextResponse) {
     );
   }
 
-  const users = readUsers();
+  const users: ServerUser[] = readUsers();
   console.log(users);
 
   if (type === "register") {

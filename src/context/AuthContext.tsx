@@ -1,16 +1,5 @@
-import { User } from "@/types";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
-
-type AuthContextType = {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
-};
+import { AuthContextType, User } from "@/types/type";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -28,7 +17,7 @@ export function AuthContextProvider({
   );
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextType | null {
   const data: AuthContextType | null = useContext(AuthContext);
   if (!data?.setUser)
     throw new Error("Auth context is used outside of provider");

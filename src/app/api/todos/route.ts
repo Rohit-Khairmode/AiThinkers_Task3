@@ -1,4 +1,4 @@
-import { Todo, User } from "@/types";
+import { Todo, User } from "@/types/type";
 import { deleteTodoSchema, todoSchema } from "@/types/zod";
 import { readUsers, writeUsers } from "@/utils/fileHandler";
 import { NextResponse } from "next/server";
@@ -16,7 +16,6 @@ export async function POST(req: Request, res: NextResponse) {
   if (!validationResult.success) {
     const errorObj = validationResult.error.format();
     console.log(errorObj);
-
     return NextResponse.json(
       {
         title: errorObj.title?._errors[0],
@@ -74,6 +73,8 @@ export async function DELETE(req: Request, res: NextResponse) {
     const users = readUsers();
     console.log(users);
     let user = users.find((cur: User) => cur.userName === userName);
+    if (!user)
+      return NextResponse.json({ message: "User not found" }, { status: 400 });
     console.log("user", user);
 
     let todos = user.todos.filter((todo: Todo) => todo.id !== id);

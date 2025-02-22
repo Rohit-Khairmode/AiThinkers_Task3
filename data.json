@@ -4,11 +4,11 @@
     "password": "Pass@1234",
     "todos": [
       {
-        "id": "0.7725635920058826",
-        "title": "Raj",
-        "createdAt": "2025-02-13T13:21:38.334Z",
-        "description": "Call Raj now",
-        "priority": "important",
+        "id": "0.7335979001137194",
+        "title": "Add Proper Types to To-Do-Project",
+        "createdAt": "2025-02-22T09:00:29.033Z",
+        "description": "Types are not properly added to react hooks",
+        "priority": "veryImportant",
         "isCompleted": false
       }
     ]
@@ -30,7 +30,7 @@
         "title": "pulsar",
         "createdAt": "2025-02-13T13:10:49.444Z",
         "description": "Want to buy it",
-        "priority": "very important",
+        "priority": "veryImportant",
         "isCompleted": false
       }
     ]
